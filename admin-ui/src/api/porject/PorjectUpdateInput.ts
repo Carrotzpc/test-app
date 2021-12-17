@@ -1,1 +1,3 @@
-export type PorjectUpdateInput = {};
+export type PorjectUpdateInput = {
+  name?: string;
+};

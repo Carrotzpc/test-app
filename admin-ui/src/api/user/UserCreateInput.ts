@@ -3,6 +3,5 @@ export type UserCreateInput = {
   lastName?: string | null;
   password: string;
   roles: Array<string>;
-  test?: string | null;
   username: string;
 };

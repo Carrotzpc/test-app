@@ -1,1 +1,3 @@
-export type PorjectCreateInput = {};
+export type PorjectCreateInput = {
+  name: string;
+};
