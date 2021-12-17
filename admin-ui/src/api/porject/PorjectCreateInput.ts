@@ -1,1 +1,4 @@
-export type PorjectCreateInput = {};
+export type PorjectCreateInput = {
+  desc?: string | null;
+  name: string;
+};
