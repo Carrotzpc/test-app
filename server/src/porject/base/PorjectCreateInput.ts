@@ -1,0 +1,2 @@
+class PorjectCreateInput {}
+export { PorjectCreateInput };

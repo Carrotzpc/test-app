@@ -1,0 +1,2 @@
+class PorjectUpdateInput {}
+export { PorjectUpdateInput };

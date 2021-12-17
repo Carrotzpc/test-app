@@ -4,6 +4,7 @@ export type User = {
   id: string;
   lastName: string | null;
   roles: Array<string>;
+  test: string | null;
   updatedAt: Date;
   username: string;
 };

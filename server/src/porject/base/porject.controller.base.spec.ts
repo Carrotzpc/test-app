@@ -5,56 +5,32 @@ import { MorganModule } from "nest-morgan";
 import { ACGuard } from "nest-access-control";
 import { DefaultAuthGuard } from "../../auth/defaultAuth.guard";
 import { ACLModule } from "../../auth/acl.module";
-import { UserController } from "../user.controller";
-import { UserService } from "../user.service";
+import { PorjectController } from "../porject.controller";
+import { PorjectService } from "../porject.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
-  firstName: "exampleFirstName",
   id: "exampleId",
-  lastName: "exampleLastName",
-  password: "examplePassword",
-  roles: ["exampleRoles"],
-  test: "exampleTest",
   updatedAt: new Date(),
-  username: "exampleUsername",
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
-  firstName: "exampleFirstName",
   id: "exampleId",
-  lastName: "exampleLastName",
-  password: "examplePassword",
-  roles: ["exampleRoles"],
-  test: "exampleTest",
   updatedAt: new Date(),
-  username: "exampleUsername",
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
-    firstName: "exampleFirstName",
     id: "exampleId",
-    lastName: "exampleLastName",
-    password: "examplePassword",
-    roles: ["exampleRoles"],
-    test: "exampleTest",
     updatedAt: new Date(),
-    username: "exampleUsername",
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
-  firstName: "exampleFirstName",
   id: "exampleId",
-  lastName: "exampleLastName",
-  password: "examplePassword",
-  roles: ["exampleRoles"],
-  test: "exampleTest",
   updatedAt: new Date(),
-  username: "exampleUsername",
 };
 
 const service = {
@@ -89,18 +65,18 @@ const acGuard = {
   },
 };
 
-describe("User", () => {
+describe("Porject", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: UserService,
+          provide: PorjectService,
           useValue: service,
         },
       ],
-      controllers: [UserController],
+      controllers: [PorjectController],
       imports: [MorganModule.forRoot(), ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
@@ -113,9 +89,9 @@ describe("User", () => {
     await app.init();
   });
 
-  test("POST /users", async () => {
+  test("POST /porjects", async () => {
     await request(app.getHttpServer())
-      .post("/users")
+      .post("/porjects")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -125,9 +101,9 @@ describe("User", () => {
       });
   });
 
-  test("GET /users", async () => {
+  test("GET /porjects", async () => {
     await request(app.getHttpServer())
-      .get("/users")
+      .get("/porjects")
       .expect(HttpStatus.OK)
       .expect([
         {
@@ -138,9 +114,9 @@ describe("User", () => {
       ]);
   });
 
-  test("GET /users/:id non existing", async () => {
+  test("GET /porjects/:id non existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/users"}/${nonExistingId}`)
+      .get(`${"/porjects"}/${nonExistingId}`)
       .expect(404)
       .expect({
         statusCode: 404,
@@ -149,9 +125,9 @@ describe("User", () => {
       });
   });
 
-  test("GET /users/:id existing", async () => {
+  test("GET /porjects/:id existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/users"}/${existingId}`)
+      .get(`${"/porjects"}/${existingId}`)
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
