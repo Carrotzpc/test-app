@@ -61,7 +61,9 @@ export class PorjectControllerBase {
       data: data,
       select: {
         createdAt: true,
+        desc: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -101,7 +103,9 @@ export class PorjectControllerBase {
       ...args,
       select: {
         createdAt: true,
+        desc: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -136,7 +140,9 @@ export class PorjectControllerBase {
       where: params,
       select: {
         createdAt: true,
+        desc: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -192,7 +198,9 @@ export class PorjectControllerBase {
         data: data,
         select: {
           createdAt: true,
+          desc: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });
@@ -228,7 +236,9 @@ export class PorjectControllerBase {
         where: params,
         select: {
           createdAt: true,
+          desc: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });
