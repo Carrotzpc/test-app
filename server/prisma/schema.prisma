@@ -14,6 +14,13 @@ model User {
   lastName  String?
   password  String
   roles     String[]
+  test      String?
   updatedAt DateTime @updatedAt
   username  String   @unique
+}
+
+model Porject {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
 }

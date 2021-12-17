@@ -44,6 +44,17 @@ class UserCreateInput {
   roles!: Array<string>;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  test?: string | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })

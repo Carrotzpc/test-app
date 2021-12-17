@@ -58,6 +58,17 @@ class UserUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
+  test?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
   username?: string;
 }
 export { UserUpdateInput };
