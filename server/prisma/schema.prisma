@@ -14,7 +14,6 @@ model User {
   lastName  String?
   password  String
   roles     String[]
-  test      String?
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
@@ -22,5 +21,6 @@ model User {
 model Porject {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
+  name      String   @unique
   updatedAt DateTime @updatedAt
 }

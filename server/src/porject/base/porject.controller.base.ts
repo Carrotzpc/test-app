@@ -62,6 +62,7 @@ export class PorjectControllerBase {
       select: {
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -102,6 +103,7 @@ export class PorjectControllerBase {
       select: {
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -137,6 +139,7 @@ export class PorjectControllerBase {
       select: {
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -193,6 +196,7 @@ export class PorjectControllerBase {
         select: {
           createdAt: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });
@@ -229,6 +233,7 @@ export class PorjectControllerBase {
         select: {
           createdAt: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });

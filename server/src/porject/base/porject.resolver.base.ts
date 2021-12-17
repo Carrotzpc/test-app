@@ -8,6 +8,8 @@ import * as gqlUserRoles from "../../auth/gqlUserRoles.decorator";
 import * as abacUtil from "../../auth/abac.util";
 import { isRecordNotFoundError } from "../../prisma.util";
 import { MetaQueryPayload } from "../../util/MetaQueryPayload";
+import { CreatePorjectArgs } from "./CreatePorjectArgs";
+import { UpdatePorjectArgs } from "./UpdatePorjectArgs";
 import { DeletePorjectArgs } from "./DeletePorjectArgs";
 import { PorjectFindManyArgs } from "./PorjectFindManyArgs";
 import { PorjectFindUniqueArgs } from "./PorjectFindUniqueArgs";
@@ -82,6 +84,91 @@ export class PorjectResolverBase {
       return null;
     }
     return permission.filter(result);
+  }
+
+  @graphql.Mutation(() => Porject)
+  @nestAccessControl.UseRoles({
+    resource: "Porject",
+    action: "create",
+    possession: "any",
+  })
+  async createPorject(
+    @graphql.Args() args: CreatePorjectArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Porject> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "create",
+      possession: "any",
+      resource: "Porject",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(
+      permission,
+      args.data
+    );
+    if (invalidAttributes.length) {
+      const properties = invalidAttributes
+        .map((attribute: string) => JSON.stringify(attribute))
+        .join(", ");
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new apollo.ApolloError(
+        `providing the properties: ${properties} on ${"Porject"} creation is forbidden for roles: ${roles}`
+      );
+    }
+    // @ts-ignore
+    return await this.service.create({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @graphql.Mutation(() => Porject)
+  @nestAccessControl.UseRoles({
+    resource: "Porject",
+    action: "update",
+    possession: "any",
+  })
+  async updatePorject(
+    @graphql.Args() args: UpdatePorjectArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Porject | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Porject",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(
+      permission,
+      args.data
+    );
+    if (invalidAttributes.length) {
+      const properties = invalidAttributes
+        .map((attribute: string) => JSON.stringify(attribute))
+        .join(", ");
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new apollo.ApolloError(
+        `providing the properties: ${properties} on ${"Porject"} update is forbidden for roles: ${roles}`
+      );
+    }
+    try {
+      // @ts-ignore
+      return await this.service.update({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new apollo.ApolloError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Porject)
